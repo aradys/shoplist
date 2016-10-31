@@ -123,7 +123,8 @@ angular.module('shoplist.controllers', [])
         }
 
         function create(object) {
-            if (object.amount == "") object.amount = 0;
+            if (object.amount == "" || object.amount < 0) object.amount = 0;
+            if (object.price == "" || object.price < 0) object.price = 0;
             ItemsModel.create(object)
                 .then(function (result) {
                     cancelCreate();
@@ -170,6 +171,24 @@ angular.module('shoplist.controllers', [])
             vm.isCreating = false;
         }
 
+        function inc(object) {
+            object.amount += 1;
+            ItemsModel.update(object.id, object)
+                .then(function (result) {
+                    getAll();
+                });
+        }
+
+        function dec(object) {
+            if(object.amount > 0){
+                object.amount -= 1;
+                ItemsModel.update(object.id, object)
+                    .then(function (result) {
+                        getAll();
+                    });
+            }
+        }
+
         vm.objects = [];
         vm.edited = null;
         vm.isEditing = false;
@@ -177,6 +196,8 @@ angular.module('shoplist.controllers', [])
         vm.getAll = getAll;
         vm.create = create;
         vm.update = update;
+        vm.inc = inc;
+        vm.dec = dec;
         vm.delete = deleteObject;
         vm.setEdited = setEdited;
         vm.isCurrent = isCurrent;

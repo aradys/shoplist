@@ -40,6 +40,14 @@ angular.module('shoplist.services', [])
             return $http.put(getUrlForId(id), object);
         };
 
+        service.inc = function (id, object) {
+            return $http.put(getUrlForId(id), object);
+        };
+
+        service.dec = function (id, object) {
+            return $http.put(getUrlForId(id), object);
+        };
+
         service.delete = function (id) {
             return $http.delete(getUrlForId(id));
         };

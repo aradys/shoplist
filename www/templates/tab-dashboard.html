@@ -1,34 +1,31 @@
-<ion-view view-title="My grocery">
+<ion-view view-title="My shopping list">
     <div ng-if="!vm.isCreating && !vm.isEditing">
         <ion-content class="padding has-header">
             <!-- LIST -->
             <div class="bar bar-header">
-                <span ng-click="vm.isCreating = true"><i class='icon ion-plus-round new-item'> Add Item</i></span>
+                <span ng-click="vm.isCreating = true"><i class='icon ion-plus-round new-item'>  Add item</i></span>
             </div>
             <div class="bar bar-subheader">
-                <div class="list card" ng-repeat="object in vm.data"
-                     ng-class="{'active':vm.isCurrent(object.id)}">
-                    <div class="item item-icon-right item-icon-left">
+                <div class="list card" ng-repeat="object in vm.data" ng-class="{'active':vm.isCurrent(object.id)}">
+                    <div class="item item-icon-right item-icon-left item-positive">
                         <i class="ion-compose icon" ng-click="vm.setEdited(object)"></i>
-
-                        <h1 class="text-center">{{object.name}}</h1>
+                        <h2 class="text-center"><b style="color: white">{{object.name}}</b></h2>
                         <i class="icon ion-close-round" ng-click="vm.delete(object.id)"></i>
                     </div>
                     <div class="row">
-                        <div class="col col-33">store:  <h3 class="text-center">{{object.store}} </h3></div>
-                        <div class="col col-33">price:  <h3 class="text-center">{{object.price}} </h3></div>
-                        <div class="col col-33">amount: <h3 class="text-center">{{object.amount}}</h3></div>
-                    </div>
-<!--                      <div class="row">
-                        <div class="col col-33 col-offset-67" >
-
-                        <form class="edit-form" role="form" ng-submit="vm.update(vm.increased)" novalidate>
-                        <textarea class="form-control" ng-model="vm.edited.amount" placeholder="Enter number"></textarea>
-                        <button class="button icon-left ion-plus" ng-click="vm.setIncreased(object)" type="submit"></button>
-                        <button class="button icon-left ion-minus" on-tap="subtractAmount(item, $index)"></button>
-                        </form>
+                        <div class="col col-33"><h5 class="text-center">{{object.store}} </h5></div>
+                        <div class="col col-33"><h5 class="text-center">{{(object.price | number:2) + " PLN"}} </h5></div>
+                        <div class="col col-6">
+                        <input type="text" name="inc_dec" size="1" placeholder="#">
                         </div>
-                    </div> -->
+                        <div class="col col-6">
+                            <button class="button button-clear icon-left ion-arrow-up-b" ng-click="vm.inc(object)"></button>
+                        </div><div class="col col-6">
+                            <h5 class="text-center"><b>{{object.amount}}</b></h5>
+                        </div><div class="col col-6">
+                            <button class="button button-clear icon-left ion-arrow-down-b" ng-click="vm.dec(object)"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </ion-content>
@@ -41,8 +38,7 @@
                 <span ng-click="vm.cancelCreate()" class="cancel-create">Cancel</span>
             </div>
             <div class="bar bar-subheader">
-                <form class="create-form" role="form"
-                      ng-submit="vm.create(vm.newObject)" novalidate>
+                <form class="create-form" role="form" ng-submit="vm.create(vm.newObject)" novalidate>
                     <div class="list">
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Name</span>
@@ -82,8 +78,7 @@
                 <span ng-click="vm.cancelEditing()" class="cancel-create">Cancel</span>
             </div>
             <div class="bar bar-subheader">
-                <form class="edit-form" role="form"
-                      ng-submit="vm.update(vm.edited)" novalidate>
+                <form class="edit-form" role="form" ng-submit="vm.update(vm.edited)" novalidate>
                     <div class="list">
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Name</span>
